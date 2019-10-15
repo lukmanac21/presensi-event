@@ -26,38 +26,43 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-calendar"></i>
               <p>
-                Event
+                Data Master
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Workshop</p>
+                <a href="<?php echo site_url('admin/Jurusan/index')?>" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>Jurusan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Seminar</p>
+                <a href="<?php echo site_url('admin/Ruangan/index')?>" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>Ruang</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="<?php echo site_url('admin/Kategori/index')?>" class="nav-link">
+                  <i class="nav-icon fas fa-share-alt"></i>
+                  <p>Kategori</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-male"></i>
+                  <p>Pemateri</p>
+                </a>
+              </li>
+              <hr style="border-top: 1px solid white ;">
             </ul>
           </li>
           <li class="nav-item">
-            <a href="<?php echo site_url('admin/Kategori/index')?>" class="nav-link">
+            <a href="<?php echo site_url('admin/Event/index')?>" class="nav-link">
               <i class="nav-icon fas fa-wrench"></i>
               <p>
-                Kategori
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-male"></i>
-              <p>
-                Pemateri
+                Event
               </p>
             </a>
           </li>
