@@ -5,10 +5,10 @@ class Jurusan extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
-		$this->load->model('mJurusan');
+		$this->load->model('mAll');
 	}
 	public function index(){
-        $result['data'] = $this->mJurusan->showData();
+        $result['data'] = $this->mAll->showData('*','tbl_jurusan');
 		$this->load->view('admin/vJurusan',$result);
     }
     public function addJurusan(){
@@ -16,7 +16,7 @@ class Jurusan extends CI_Controller {
         $data = array (
             'nama_jurusan' => $nama_jurusan
             );
-        $this->mJurusan->inputData($data, 'tbl_jurusan');
+        $this->mAll->inputData($data, 'tbl_jurusan');
         redirect('admin/Jurusan/index');
     }
     public function editJurusan(){
@@ -28,12 +28,15 @@ class Jurusan extends CI_Controller {
         $where = array(
             'id_jurusan' => $id
         );
-        $this->mJurusan->updateData($where, $data, 'tbl_jurusan');
+        $this->mAll->updateData($where, $data, 'tbl_jurusan');
         redirect('admin/Jurusan/index');
     }
     public function deleteJurusan(){
         $id= $this->input->post('id');
-        $this->mJurusan->deleteData($id);
+        $where = array(
+            'id_jurusan' => $id
+        );
+        $this->mAll->deleteData($where,'tbl_jurusan');
         redirect('admin/Jurusan/index');
     }
 }

@@ -5,10 +5,10 @@ class Kategori extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
-		$this->load->model('mKategori');
+		$this->load->model('mAll');
 	}
 	public function index(){
-        $result['data'] = $this->mKategori->showData();
+        $result['data'] = $this->mAll->showData('*','tbl_kategori');
 		$this->load->view('admin/vKategori',$result);
     }
     public function addKategori(){
@@ -16,7 +16,7 @@ class Kategori extends CI_Controller {
         $data = array (
             'nama_kategori' => $nama_kategori
             );
-        $this->mKategori->inputData($data, 'tbl_kategori');
+        $this->mAll->inputData($data, 'tbl_kategori');
         redirect('admin/Kategori/index');
     }
     public function editKategori(){
@@ -28,12 +28,15 @@ class Kategori extends CI_Controller {
         $where = array(
             'id_kategori' => $id
         );
-        $this->mKategori->updateData($where, $data, 'tbl_kategori');
+        $this->mAll->updateData($where, $data, 'tbl_kategori');
         redirect('admin/Kategori/index');
     }
     public function deleteKategori(){
         $id= $this->input->post('id');
-        $this->mKategori->deleteData($id);
+        $where = array(
+            'id_kategori' => $id
+        );
+        $this->mAll->deleteData($where,'tbl_kategori');
         redirect('admin/Kategori/index');
     }
 }

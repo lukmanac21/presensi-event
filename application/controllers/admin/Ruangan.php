@@ -5,10 +5,10 @@ class Ruangan extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
-		$this->load->model('mRuangan');
+		$this->load->model('mAll');
 	}
 	public function index(){
-        $result['data'] = $this->mRuangan->showData();
+        $result['data'] = $this->mAll->showData('*','tbl_ruang');
 		$this->load->view('admin/vRuangan',$result);
     }
     public function addRuang(){
@@ -16,7 +16,7 @@ class Ruangan extends CI_Controller {
         $data = array (
             'nama_ruang' => $nama_ruang
             );
-        $this->mRuangan->inputData($data, 'tbl_ruang');
+        $this->mAll->inputData($data, 'tbl_ruang');
         redirect('admin/Ruangan/index');
     }
     public function editRuang(){
@@ -28,12 +28,15 @@ class Ruangan extends CI_Controller {
         $where = array(
             'id_ruang' => $id
         );
-        $this->mRuangan->updateData($where, $data, 'tbl_ruang');
+        $this->mAll->updateData($where, $data, 'tbl_ruang');
         redirect('admin/Ruangan/index');
     }
     public function deleteRuang(){
         $id= $this->input->post('id');
-        $this->mRuangan->deleteData($id);
+        $where = array(
+            'id_ruang' => $id
+        );
+        $this->mAll->deleteData($where,'tbl_ruang');
         redirect('admin/Ruangan/index');
     }
 }

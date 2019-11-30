@@ -6,14 +6,11 @@ class Login extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('mLogin');
-        //if($this->session->userdata('status') != "login"){
-            //redirect(base_url("login"));
-        //}
+        $this->load->library('session');
     }
 	public function index(){
         $this->load->helper('url');
-        $this->session->userdata('nama_siswa');
-		$this->load->view('login');
+		$this->load->view('admin/login');
     }
     public function signup(){
         $this->load->helper('url');
@@ -21,19 +18,19 @@ class Login extends CI_Controller {
         $this->load->view('signup',$data);
     }
     public function login_action(){
-        $nrp = $this->input->post('nrp');
+        $email = $this->input->post('email');
         $password = $this->input->post('password');
         $where = array(
-            'nrp_siswa' => $nrp,
-            'password_siswa' => md5($password)
+            'email_admin' => $email,
+            'pass_admin' => md5($password)
         );
-        $check = $this->mLogin->login_checker("tbl_siswa",$where)->num_rows();
+        $check = $this->mLogin->login_checker("tbl_admin",$where)->num_rows();
         if($check > 0){
-            $data_session = array(
-                'nrp' => $nrp,
-                'status' => "Login"
+            $data = array(
+                'logged_in' => TRUE,
+                'username' => $check->name_admin
             );
-            $this->session->set_userdata($data_session);
+            $this->session->set_userdata($data);
             redirect(site_url('admin/overview'));
         }else{
             echo"nrp atau password salah";
