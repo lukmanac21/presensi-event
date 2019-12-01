@@ -63,9 +63,36 @@ class Home extends CI_Controller {
 		$this->mUser->input_daftar($data,'tbl_pendaftaran');
 		redirect(site_url('home'));
     }
-    public function load_profile(){
-        $id = $this->input->get('id');
+    public function load_profile(){ 
+        $id = $this->session->userdata('id');
         $data['profile']=$this->mUser->showDataProfile($id);
+        $data['event']=$this->mUser->showDataEvent($id);
         $this->load->view('profile',$data);
+    }
+    public function check_in(){
+        date_default_timezone_set('Asia/Jakarta');
+        $jam_check = date('h:i:s a');
+        $id_pendaftaran = $this->input->post('id_pendaftaran');
+		$where = array(
+			'id_pendaftaran' => $id_pendaftaran
+        );
+        $data = array(
+            'jam_checkin' => $jam_check
+        );
+        $this->mUser->updateData($where, $data,'tbl_pendaftaran');
+        redirect(site_url('home/load_profile'));
+    }
+    public function check_out(){
+        date_default_timezone_set('Asia/Jakarta');
+        $jam_check = date('h:i:s a');
+        $id_pendaftaran = $this->input->post('id_pendaftaran');
+		$where = array(
+			'id_pendaftaran' => $id_pendaftaran
+        );
+        $data = array(
+            'jam_checkout' => $jam_check
+        );
+        $this->mUser->updateData($where, $data,'tbl_pendaftaran');
+        redirect(site_url('home/load_profile'));
     }
 }

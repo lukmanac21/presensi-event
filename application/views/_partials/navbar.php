@@ -46,7 +46,6 @@
                 <a class="nav-link" href="#">Contact</a>
               </li>
               <li class="nav-item">
-                <input type="hidden" id="id" name="id" value="<?=$id?>">
                 <a class="nav-link" href="<?php echo site_url('home/load_profile');?>">Profile</a>
               </li>
             </ul>

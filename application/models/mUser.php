@@ -21,6 +21,13 @@ class mUser extends CI_MODEL{
     function showDataProfile($id){
         $this->db->select('*');
         $this->db->from('tbl_siswa');
+        $this->db->where('tbl_siswa.id_siswa =',$id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function showDataEvent($id){
+        $this->db->select('*');
+        $this->db->from('tbl_siswa');
         $this->db->join('tbl_pendaftaran','tbl_siswa.id_siswa = tbl_pendaftaran.id_siswa');
         $this->db->join('tbl_event','tbl_event.id_event = tbl_pendaftaran.id_event');
         $this->db->join('tbl_kategori','tbl_kategori.id_kategori = tbl_event.id_kategori');

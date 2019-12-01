@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2019 at 12:28 PM
+-- Generation Time: Dec 01, 2019 at 07:54 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -68,7 +68,7 @@ CREATE TABLE `tbl_event` (
 INSERT INTO `tbl_event` (`id_event`, `id_kategori`, `nama_event`, `tanggal_event`, `jam_event`, `id_ruang`, `kuota_event`, `banner_event`, `sisa_kuota`) VALUES
 (1, 1, 'DESING APLIKASI MENGGUNAKAN ADOBE XD', '2019-10-08', '13:00:00', 1, 50, 'business-banner-template_23-2148255494.jpg', 49),
 (2, 2, 'Membuat Prototype', '2019-10-20', '10:00:00', 1, 50, 'online-banner-template-business-conference_23-21483103772.jpg', 50),
-(3, 2, 'Membuat E-Commerce', '2019-11-30', '10:00:00', 1, 50, 'images.jpg', 48);
+(3, 2, 'Membuat E-Commerce', '2019-11-30', '10:00:00', 1, 50, 'images.jpg', 50);
 
 -- --------------------------------------------------------
 
@@ -130,9 +130,7 @@ CREATE TABLE `tbl_pendaftaran` (
 --
 
 INSERT INTO `tbl_pendaftaran` (`id_pendaftaran`, `id_event`, `id_siswa`, `jam_checkin`, `jam_checkout`) VALUES
-(1, 1, 1, '00:00:00', '00:00:00'),
-(4, 3, 1, '00:00:00', '00:00:00'),
-(5, 3, 1, '00:00:00', '00:00:00');
+(1, 1, 1, '01:45:08', '01:47:00');
 
 --
 -- Triggers `tbl_pendaftaran`
@@ -142,6 +140,14 @@ CREATE TRIGGER `add_kuota` AFTER INSERT ON `tbl_pendaftaran` FOR EACH ROW BEGIN
 UPDATE tbl_event
 SET tbl_event.sisa_kuota = tbl_event.sisa_kuota - 1
 where tbl_event.id_event = new.id_event;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `min_kuota` AFTER DELETE ON `tbl_pendaftaran` FOR EACH ROW BEGIN 
+UPDATE tbl_event
+set tbl_event.sisa_kuota = tbl_event.sisa_kuota + 1
+where tbl_event.id_event = old.id_event;
 END
 $$
 DELIMITER ;
